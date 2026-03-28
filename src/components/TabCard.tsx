@@ -51,20 +51,20 @@ export default function TabCard({
         href={tab.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 mb-2"
+        className="w-20 h-20 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 mb-2"
         style={{ backgroundColor: "var(--card)" }}
       >
         <img
           src={getFaviconUrl(tab.url)}
           alt=""
-          width={28}
-          height={28}
+          width={40}
+          height={40}
           className="rounded-sm"
         />
       </a>
 
       {/* Label */}
-      <span className="text-xs text-[var(--muted)] text-center truncate w-full">
+      <span className="text-sm text-[var(--muted)] text-center truncate w-full">
         {tab.name}
       </span>
     </div>

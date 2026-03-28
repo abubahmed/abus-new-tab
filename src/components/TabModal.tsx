@@ -37,7 +37,6 @@ export default function TabModal({
       id: tab?.id || generateId(),
       name: derivedName,
       url: processedUrl,
-      color: "blue",
       createdAt: tab?.createdAt || new Date().toISOString(),
     });
   }

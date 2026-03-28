@@ -160,7 +160,7 @@ export default function Home() {
         <DateTimeWeather />
 
         {/* Search bar */}
-        <form onSubmit={handleSearch} className="w-full max-w-xl mb-12 px-4">
+        <form onSubmit={handleSearch} className="w-full max-w-xl mb-16 px-4">
           <div className="flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#e8eaed] hover:bg-[#dfe1e5] transition-colors shadow-sm">
             <svg
               className="w-5 h-5 text-[#9aa0a6] shrink-0"
@@ -191,11 +191,8 @@ export default function Home() {
         ) : (
           <div className="w-full max-w-7xl px-4 flex flex-col md:flex-row gap-0">
             {/* Groups section */}
-            <div className="flex-1 flex flex-col items-center pb-8 md:pb-0 md:pr-8">
-              <h2 className="text-sm font-medium text-[#9aa0a6] uppercase tracking-wider mb-5">
-                Groups
-              </h2>
-              <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center">
+            <div className="flex-1 flex flex-col items-center pb-8 md:pb-0 md:pr-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 justify-items-center">
                 {groups.map((group) => (
                   <TabGroupCard
                     key={group.id}
@@ -210,11 +207,11 @@ export default function Home() {
                       setEditingGroup(null);
                       setShowGroupModal(true);
                     }}
-                    className="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 mb-2 border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)]"
+                    className="w-20 h-20 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 mb-2 border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)]"
                   >
                     <span className="text-xl text-[var(--muted)]">+</span>
                   </button>
-                  <span className="text-xs text-[var(--muted)]">Add group</span>
+                  <span className="text-sm text-[var(--muted)]">Add group</span>
                 </div>
               </div>
             </div>
@@ -223,11 +220,8 @@ export default function Home() {
             <div className="border-b border-[#3c4043] md:border-b-0 md:border-r md:border-[#3c4043] mx-4 md:mx-0" />
 
             {/* Tabs section */}
-            <div className="flex-1 flex flex-col items-center pt-8 md:pt-0 md:pl-8">
-              <h2 className="text-sm font-medium text-[#9aa0a6] uppercase tracking-wider mb-5">
-                Tabs
-              </h2>
-              <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center">
+            <div className="flex-1 flex flex-col items-center pt-8 md:pt-0 md:pl-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 justify-items-center">
                 {tabs.map((tab) => (
                   <TabCard
                     key={tab.id}
@@ -242,11 +236,11 @@ export default function Home() {
                       setEditingTab(null);
                       setShowTabModal(true);
                     }}
-                    className="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 mb-2 border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)]"
+                    className="w-20 h-20 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 mb-2 border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)]"
                   >
                     <span className="text-xl text-[var(--muted)]">+</span>
                   </button>
-                  <span className="text-xs text-[var(--muted)]">Add tab</span>
+                  <span className="text-sm text-[var(--muted)]">Add tab</span>
                 </div>
               </div>
             </div>

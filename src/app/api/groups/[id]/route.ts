@@ -15,7 +15,7 @@ export async function PUT(
     }
 
     const { id } = await params;
-    const { name, color, tabs } = await req.json();
+    const { name, tabs } = await req.json();
 
     if (!name || !tabs || !Array.isArray(tabs) || tabs.length === 0) {
       return NextResponse.json({ error: "Name and at least one tab required" }, { status: 400 });
@@ -31,7 +31,7 @@ export async function PUT(
 
     const result = await db
       .update(tabGroups)
-      .set({ name, color: color || "blue", tabs })
+      .set({ name, tabs })
       .where(and(eq(tabGroups.id, id), eq(tabGroups.userId, userId)))
       .returning({ id: tabGroups.id });
 

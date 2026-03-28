@@ -2,18 +2,14 @@
 
 import { TabGroup } from "@/lib/types";
 
-const ICON_LETTERS_BG: Record<string, string> = {
-  blue: "bg-blue-500/20 text-blue-400",
-  green: "bg-green-500/20 text-green-400",
-  purple: "bg-purple-500/20 text-purple-400",
-  orange: "bg-orange-500/20 text-orange-400",
-  pink: "bg-pink-500/20 text-pink-400",
-  red: "bg-red-500/20 text-red-400",
-  yellow: "bg-yellow-500/20 text-yellow-400",
-  teal: "bg-teal-500/20 text-teal-400",
-  cyan: "bg-cyan-500/20 text-cyan-400",
-  indigo: "bg-indigo-500/20 text-indigo-400",
-};
+function getFaviconUrl(url: string): string {
+  try {
+    const hostname = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+  } catch {
+    return "";
+  }
+}
 
 export default function TabGroupCard({
   group,
@@ -40,7 +36,20 @@ export default function TabGroupCard({
     }
   }
 
-  const letterBg = ICON_LETTERS_BG[group.color] || ICON_LETTERS_BG.blue;
+  const displayTabs = group.tabs.slice(0, 5);
+
+  // Positions for each layout (percentage offsets from center of the 80px circle)
+  // Each position is [x, y] where 0,0 is center
+  const layouts: Record<number, [number, number][]> = {
+    1: [[0, 0]],
+    2: [[-12, 0], [12, 0]],
+    3: [[0, -10], [-12, 10], [12, 10]],
+    4: [[-12, -12], [12, -12], [-12, 12], [12, 12]],
+    5: [[0, -14], [-14, -2], [14, -2], [-9, 14], [9, 14]],
+  };
+
+  const count = displayTabs.length;
+  const positions = layouts[count] || layouts[1];
 
   return (
     <div className="group relative flex flex-col items-center w-28 shrink-0">
@@ -68,25 +77,51 @@ export default function TabGroupCard({
         </button>
       </div>
 
-      {/* Icon circle */}
+      {/* Favicon cluster */}
       <button
         onClick={launchTabs}
-        className="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 mb-2"
+        className="w-20 h-20 rounded-full relative cursor-pointer transition-transform hover:scale-110 mb-2"
         style={{ backgroundColor: "var(--card)" }}
       >
-        <span className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-semibold ${letterBg}`}>
-          {group.name.charAt(0).toUpperCase()}
-        </span>
+        {displayTabs.map((tab, i) => {
+          const [x, y] = positions[i] || [0, 0];
+          return (
+            <div
+              key={tab.id}
+              className="w-7 h-7 rounded-full flex items-center justify-center absolute border border-[var(--card)]"
+              style={{
+                backgroundColor: "var(--background)",
+                left: `calc(50% + ${x}px - 14px)`,
+                top: `calc(50% + ${y}px - 14px)`,
+              }}
+            >
+              <img
+                src={getFaviconUrl(tab.url)}
+                alt=""
+                width={14}
+                height={14}
+                className="rounded-sm"
+              />
+            </div>
+          );
+        })}
+        {count === 0 && (
+          <div
+            className="w-7 h-7 rounded-full flex items-center justify-center absolute text-sm text-[var(--muted)]"
+            style={{
+              backgroundColor: "var(--background)",
+              left: "calc(50% - 14px)",
+              top: "calc(50% - 14px)",
+            }}
+          >
+            ?
+          </div>
+        )}
       </button>
 
       {/* Label */}
-      <span className="text-xs text-[var(--muted)] text-center truncate w-full">
+      <span className="text-sm text-[var(--muted)] text-center truncate w-full">
         {group.name}
-      </span>
-
-      {/* Tab count badge */}
-      <span className="text-[10px] text-[var(--muted)] opacity-60">
-        {group.tabs.length} tab{group.tabs.length !== 1 ? "s" : ""}
       </span>
     </div>
   );

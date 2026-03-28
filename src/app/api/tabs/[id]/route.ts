@@ -15,7 +15,7 @@ export async function PUT(
     }
 
     const { id } = await params;
-    const { name, url, color } = await req.json();
+    const { name, url } = await req.json();
 
     if (!name || !url) {
       return NextResponse.json({ error: "Name and URL required" }, { status: 400 });
@@ -29,7 +29,7 @@ export async function PUT(
 
     const result = await db
       .update(singleTabs)
-      .set({ name, url, color: color || "blue" })
+      .set({ name, url })
       .where(and(eq(singleTabs.id, id), eq(singleTabs.userId, userId)))
       .returning({ id: singleTabs.id });
 

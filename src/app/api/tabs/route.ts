@@ -22,7 +22,6 @@ export async function GET() {
         id: t.id,
         name: t.name,
         url: t.url,
-        color: t.color,
         createdAt: t.createdAt,
       })),
     });
@@ -39,7 +38,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
-    const { name, url, color } = await req.json();
+    const { name, url } = await req.json();
 
     if (!name || !url) {
       return NextResponse.json({ error: "Name and URL required" }, { status: 400 });
@@ -53,7 +52,7 @@ export async function POST(req: Request) {
 
     const [tab] = await db
       .insert(singleTabs)
-      .values({ userId, name, url, color: color || "blue" })
+      .values({ userId, name, url })
       .returning({ id: singleTabs.id });
 
     return NextResponse.json({ ok: true, id: tab.id }, { status: 201 });
