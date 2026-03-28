@@ -1,7 +1,7 @@
 import { TabGroup, SingleTab } from "./types";
 
 // Flip this to true to see mock data instead of hitting the API
-export const USE_MOCK_DATA = true;
+export const USE_MOCK_DATA = false;
 
 export const MOCK_GROUPS: TabGroup[] = [
   {
