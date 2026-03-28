@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TLauncher",
+  title: "Abu's New Tab",
   description: "Group and launch tabs together",
 };
 
